@@ -1,4 +1,6 @@
 package inter;
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
@@ -54,6 +56,13 @@ public class CtrlPanel extends org.eclipse.swt.widgets.Composite {
 	private Text text2;
 	private Label label2;
 	private Text text1;
+    private Label label1danwei;
+    private Label label2danwei;
+    private Label label3danwei;
+    private Label label4danwei;
+    private Label label5danwei;
+
+
 
 	/**
 	* Auto-generated main method to display this 
@@ -100,6 +109,22 @@ public class CtrlPanel extends org.eclipse.swt.widgets.Composite {
 		initGUI();
 	}
 
+	public ArrayList<String> getParameter(){
+	    ArrayList<String> ret = new ArrayList<String>();
+	    
+	    ret.add(text1.getText());
+	    ret.add(text2.getText());
+	    ret.add(text3.getText());
+	    ret.add(text4.getText());
+	    
+	    return ret;
+	}
+	
+	public void outputPenalty(String out) {
+	    text5.setText(out);
+	}
+	
+	
 	private void initGUI() {
 		try {
 			RowLayout thisLayout = new RowLayout(org.eclipse.swt.SWT.HORIZONTAL);
@@ -149,95 +174,137 @@ public class CtrlPanel extends org.eclipse.swt.widgets.Composite {
 			{
 				composite2 = new Composite(this, SWT.NONE);
 				GridLayout composite2Layout = new GridLayout();
-				composite2Layout.makeColumnsEqualWidth = true;
-				composite2Layout.numColumns = 2;
-				composite2Layout.marginLeft = 40;
-				RowData composite2LData = new RowData(250, 119);
+				composite2Layout.makeColumnsEqualWidth = false;
+				composite2Layout.numColumns = 3;
+//				composite2Layout.marginLeft = 10;
+				RowData composite2LData = new RowData(250, 140);
 				composite2LData.width = 250;
-				composite2LData.height = 119;
+				composite2LData.height = 140;
 				composite2.setLayoutData(composite2LData);
 				composite2.setLayout(composite2Layout);
-				composite2.setSize(249, 119);
+				composite2.setSize(249, 139);
 				{
 					label1 = new Label(composite2, SWT.NONE);
 					GridData label1LData = new GridData();
-					label1LData.widthHint = 76;
-					label1LData.heightHint = 17;
+					label1LData.widthHint = 120;
+					label1LData.heightHint = 18;
 					label1.setLayoutData(label1LData);
-					label1.setText("latency");
+					label1.setText("Latency Bound");
 				}
 				{
 					text1 = new Text(composite2, SWT.NONE);
 					GridData text1LData = new GridData();
-					text1LData.widthHint = 70;
-					text1LData.heightHint = 17;
+					text1LData.widthHint = 50;
+					text1LData.heightHint = 18;
 					text1.setLayoutData(text1LData);
-					text1.setText("value1");
+					text1.setText("");
+				}
+				{
+				    label1danwei = new Label(composite2, SWT.NONE);
+                    GridData label1LDatadanwei = new GridData();
+                    label1LDatadanwei.widthHint = 25;
+                    label1LDatadanwei.heightHint = 18;
+                    label1danwei.setLayoutData(label1LDatadanwei);
+                    label1danwei.setText("ms");
 				}
 				{
 					label2 = new Label(composite2, SWT.NONE);
 					GridData label2LData = new GridData();
-					label2LData.widthHint = 70;
-					label2LData.heightHint = 17;
+					label2LData.widthHint = 120;
+					label2LData.heightHint = 18;
 					label2.setLayoutData(label2LData);
-					label2.setText("att2");
+					label2.setText("Staleness Bound");
 				}
+	        
 				{
 					text2 = new Text(composite2, SWT.NONE);
 					GridData value2LData = new GridData();
-					value2LData.widthHint = 70;
-					value2LData.heightHint = 17;
+					value2LData.widthHint = 50;
+					value2LData.heightHint = 18;
 					text2.setLayoutData(value2LData);
-					text2.setText("value2");
+					text2.setText("");
 				}
+			    {
+                    label2danwei = new Label(composite2, SWT.NONE);
+                    GridData label2LDatadanwei = new GridData();
+                    label2LDatadanwei.widthHint = 25;
+                    label2LDatadanwei.heightHint = 18;
+                    label2danwei.setLayoutData(label2LDatadanwei);
+                    label2danwei.setText("s");
+                }
 				{
 					attr3 = new Label(composite2, SWT.NONE);
 					GridData attr3LData = new GridData();
-					attr3LData.widthHint = 70;
-					attr3LData.heightHint = 17;
+					attr3LData.widthHint = 120;
+					attr3LData.heightHint = 18;
 					attr3.setLayoutData(attr3LData);
-					attr3.setText("att3");
+					attr3.setText("QoS Preference");
 				}
 				{
 					text3 = new Text(composite2, SWT.NONE);
 					GridData text3LData = new GridData();
-					text3LData.widthHint = 70;
-					text3LData.heightHint = 17;
+					text3LData.widthHint = 50;
+					text3LData.heightHint = 18;
 					text3.setLayoutData(text3LData);
-					text3.setText("value3");
-					text3.setSize(72, 17);
+					text3.setText("");
 				}
+                {
+                    label3danwei = new Label(composite2, SWT.NONE);
+                    GridData label3LDatadanwei = new GridData();
+                    label3LDatadanwei.widthHint = 25;
+                    label3LDatadanwei.heightHint = 18;
+                    label3danwei.setLayoutData(label3LDatadanwei);
+                    label3danwei.setText("");
+                }
 				{
 					label3 = new Label(composite2, SWT.NONE);
 					GridData label3LData = new GridData();
-					
+					label3LData.widthHint = 120;
+					label3LData.heightHint = 18;
 					label3.setLayoutData(label3LData);
-					label3.setText("label3");
+					label3.setText("Query Weight");
 				}
 				{
 					text4 = new Text(composite2, SWT.NONE);
 					GridData text4LData = new GridData();
-					text4LData.widthHint = 70;
-					text4LData.heightHint = 17;
+					text4LData.widthHint = 50;
+					text4LData.heightHint = 18;
 					text4.setLayoutData(text4LData);
-					text4.setText("text4");
-					text4.setSize(72, 17);
+					text4.setText("");
 				}
+                {
+                    label4danwei = new Label(composite2, SWT.NONE);
+                    GridData label4LDatadanwei = new GridData();
+                    label4LDatadanwei.widthHint = 25;
+                    label4LDatadanwei.heightHint = 18;
+                    label4danwei.setLayoutData(label4LDatadanwei);
+                    label4danwei.setText("");
+                }
 				{
 					label4 = new Label(composite2, SWT.NONE);
 					GridData label4LData = new GridData();
+					label4LData.widthHint = 120;
+					label4LData.heightHint = 18;
 					label4.setLayoutData(label4LData);
-					label4.setText("label4");
+					label4.setText("Penalty");
 				}
 				{
 					text5 = new Text(composite2, SWT.NONE);
 					GridData text5LData = new GridData();
-					text5LData.widthHint = 70;
-					text5LData.heightHint = 17;
+					text5LData.widthHint = 50;
+					text5LData.heightHint = 18;
 					text5.setLayoutData(text5LData);
-					text5.setText("text5");
-					text5.setSize(72, 17);
+					text5.setText("");
+					text5.setEditable(false);
 				}
+                {
+                    label5danwei = new Label(composite2, SWT.NONE);
+                    GridData label5LDatadanwei = new GridData();
+                    label5LDatadanwei.widthHint = 25;
+                    label5LDatadanwei.heightHint = 18;
+                    label5danwei.setLayoutData(label5LDatadanwei);
+                    label5danwei.setText("");
+                }
 			}
 			this.layout();
 		} catch (Exception e) {

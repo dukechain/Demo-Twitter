@@ -23,6 +23,7 @@ public class Tweet
     private String tweetContent;
     public long tweetPosttime;
     
+    
     public String getTweetId() {
         return tweetID;
     }
@@ -105,6 +106,8 @@ public class Tweet
                     buffer.flip();//need flip 
                     tweetPosttime = buffer.getLong();
                 }
+                
+                
             }
         }
         catch (CharacterCodingException e)

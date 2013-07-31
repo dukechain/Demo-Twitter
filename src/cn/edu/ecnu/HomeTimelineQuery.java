@@ -1,6 +1,5 @@
 package cn.edu.ecnu;
 
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,8 +7,9 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.antlr.gunit.swingui.model.TestCase;
+import org.apache.cassandra.thrift.Agreement_parameters;
 import org.apache.cassandra.thrift.Cassandra;
+import org.apache.cassandra.thrift.Column;
 import org.apache.cassandra.thrift.ColumnOrSuperColumn;
 import org.apache.cassandra.thrift.ColumnParent;
 import org.apache.cassandra.thrift.ConsistencyLevel;
@@ -32,10 +32,47 @@ public class HomeTimelineQuery
     
     CopyOnWriteArrayList<Tweet> hometimeline;
     
+    CopyOnWriteArrayList<Penalty> penalties;
+    
+    //scheduler parameter
+    Agreement_parameters para;
+    
     public HomeTimelineQuery()
     {
         count = new AtomicInteger(num_followees);
         hometimeline = new CopyOnWriteArrayList<Tweet>();
+    }
+    
+    public HomeTimelineQuery(List<String> paraList)
+    {
+        this();
+        
+        
+        para = new Agreement_parameters(Long.parseLong(paraList.get(0)), 
+                Long.parseLong(paraList.get(1)));
+        
+        if (paraList.size() > 2)
+        {
+            para.setQoS_preference(Double.parseDouble(paraList.get(2)));
+            para.setQuery_weight(Double.parseDouble(paraList.get(3)));
+        }
+
+    }
+    
+    public double getTotalPenalty()
+    {
+        double total = Double.MIN_VALUE;
+        
+        for (Penalty p : penalties)
+        {
+            double temp = p.getTotalPenalty();
+            if (temp > total)
+            {
+                total = temp;
+            }
+        }
+        
+        return total;
     }
     
     public List<Tweet> query() {
@@ -125,8 +162,16 @@ public class HomeTimelineQuery
                         ByteBufferUtil.bytes(""), false, 10);
                 predicate.setSlice_range(sliceRange);
                 
-                List<ColumnOrSuperColumn> results = client.get_slice(
-                        ByteBufferUtil.bytes(key), parent, predicate, ConsistencyLevel.ONE);
+                //Agreement_parameters para = new Agreement_parameters();
+                
+                
+                
+               /* List<ColumnOrSuperColumn> results = client.get_slice(
+                        ByteBufferUtil.bytes(key), parent, predicate, ConsistencyLevel.ONE);*/
+                
+                List<ColumnOrSuperColumn> results = client.get_slice_Q(
+                        ByteBufferUtil.bytes(key), parent, predicate, ConsistencyLevel.ONE,
+                        para);
                 
                 for (ColumnOrSuperColumn result : results)
                 {
@@ -140,7 +185,15 @@ public class HomeTimelineQuery
                         Tweet tweet = new Tweet(supercolumn);
                         hometimeline.add(tweet);
                     }         
-                    
+                    else {
+                        Column schedulerCol = supercolumn.getColumns().get(0);
+                        String schedulerStr = ByteBufferUtil.string(
+                                ByteBufferUtil.clone(schedulerCol.value));
+                        
+                        Penalty penalty = new Penalty(schedulerStr);
+                        
+                        penalties.add(penalty);
+                    }
                     //System.out.println(toString(column.name) + " -> " + toString(column.value));
                 }
 

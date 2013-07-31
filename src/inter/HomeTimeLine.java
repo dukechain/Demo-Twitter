@@ -1,11 +1,11 @@
 package inter;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Timer;
 
-import org.antlr.grammar.v3.ANTLRv3Parser.finallyClause_return;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
@@ -155,6 +155,11 @@ public class HomeTimeLine extends org.eclipse.swt.widgets.Composite
                             resultPanel.updateResultList(t);
                         }
                         System.out.println("button message");
+                        
+                        ArrayList<String> par = ctrlPanel.getParameter();
+                        System.out.println(par);
+                        ctrlPanel.outputPenalty(Double.toString(
+                                timeline.getTotalPenalty()));
          
                     }
                 });
