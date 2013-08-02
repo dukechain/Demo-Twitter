@@ -1,8 +1,6 @@
 package inter;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Random;
+
 
 import javax.swing.Timer;
 
@@ -11,7 +9,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
@@ -28,7 +25,7 @@ import cn.edu.ecnu.GlobalTimelineGenerator;
  * Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms. A COMMERCIAL LICENSE HAS NOT BEEN
  * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
  */
-public class MainApp extends org.eclipse.swt.widgets.Composite
+public class GlobalTimeline extends org.eclipse.swt.widgets.Composite
 {
     private ResultPanel resultPanel;
 
@@ -71,7 +68,7 @@ public class MainApp extends org.eclipse.swt.widgets.Composite
     {
         Display display = Display.getDefault();
         Shell shell = new Shell(display);
-        final MainApp inst = new MainApp(shell, SWT.NULL);
+        final GlobalTimeline inst = new GlobalTimeline(shell, SWT.NULL);
         Point size = inst.getSize();
         shell.setLayout(new FillLayout());
         shell.layout();
@@ -84,8 +81,8 @@ public class MainApp extends org.eclipse.swt.widgets.Composite
         {
             Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
             shell.setSize(shellBounds.width, shellBounds.height);
-            shell.setText("Generate");
-            shell.setImage(new Image(null, "image.jpg"));
+            shell.setText("Generator");
+            shell.setImage(new Image(null, "image/image.jpg"));
         }
         shell.open();
 
@@ -114,7 +111,7 @@ public class MainApp extends org.eclipse.swt.widgets.Composite
        }
     }
 
-    public MainApp(org.eclipse.swt.widgets.Composite parent, int style)
+    public GlobalTimeline(org.eclipse.swt.widgets.Composite parent, int style)
     {
         super(parent, style);
         initGUI();

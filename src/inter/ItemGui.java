@@ -232,14 +232,14 @@ public class ItemGui extends org.eclipse.swt.widgets.Composite {
 							label3.setFont(SWTResourceManager.getFont("微软雅黑",
 									8, 2, false, false));
 						}
-						{
+						/*{
 							label4 = new Label(composite3, SWT.NONE);
 							label4.setText("Latency: 100ms");
 							label4.setForeground(SWTResourceManager.getColor(0,
 									0, 227));
 							label4.setFont(SWTResourceManager.getFont("微软雅黑",
 									8, 2, false, false));
-						}
+						}*/
 					}
 				}
 			}

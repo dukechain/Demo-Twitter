@@ -3,8 +3,11 @@ package cn.edu.ecnu;
 
 import inter.ResultPanel;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -138,9 +141,9 @@ public class GlobalTimelineGenerator extends Thread
         {
             key = "user"+userkey;
             userName = userNameList.get(userkey);
-            userImagepath = userkey+".jpg";
+            userImagepath = "image/"+userkey+".jpg";
             
-            tweetContent = tweetContentList.get(UniformGenerator.nextInt(0, tweetContentList.size()-1));
+            //tweetContent = tweetContentList.get(UniformGenerator.nextInt(0, tweetContentList.size()-1));
             
             tweetGenRate = tweetGenRateList.get(userkey);
             
@@ -179,14 +182,22 @@ public class GlobalTimelineGenerator extends Thread
                 Column imageColumn = new Column(ByteBufferUtil.bytes(Schema.userImage));
                 final Image image = new Image(Display.getDefault(), userImagepath);
                
-                ImageLoader loader = new ImageLoader();
-                loader.load(userImagepath);
                 
+                //userImagePath
+//                ImageLoader loader = new ImageLoader();
+//                loader.load(userImagepath);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream(1024);
+                BufferedInputStream bis = new BufferedInputStream(new FileInputStream(userImagepath));
+                byte[] tmp = new byte[1024];
+                int size = -1;
+                while( (size = bis.read(tmp)) != -1) {
+                    bos.write(tmp, 0, size);
+                }
+                bis.close();
+//                ByteArrayOutputStream outStream = new ByteArrayOutputStream();
                 
-                ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-                
-                loader.save(outStream, SWT.IMAGE_JPEG);
-                ByteBuffer buf = ByteBuffer.wrap(outStream.toByteArray());
+//                loader.save(outStream, SWT.IMAGE_JPEG);
+                ByteBuffer buf = ByteBuffer.wrap(bos.toByteArray());
                 
                 
                 imageColumn.setValue(buf);
@@ -195,6 +206,10 @@ public class GlobalTimelineGenerator extends Thread
                 
                 // tweet content
                 Column tweetContentColumn = new Column(ByteBufferUtil.bytes(Schema.tweetContent));
+                
+                tweetContent = tweetContentList.get(
+                        UniformGenerator.nextInt(0, tweetContentList.size()-1));
+                
                 tweetContentColumn.setValue(ByteBufferUtil.bytes(tweetContent));
                 tweetContentColumn.setTimestamp(timestamp);
                 supercol.addToColumns(tweetContentColumn);

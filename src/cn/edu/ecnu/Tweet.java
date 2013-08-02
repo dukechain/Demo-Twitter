@@ -88,10 +88,9 @@ public class Tweet
                 {
                     byte [] data = ByteBufferUtil.getArray(column.value);
                     ByteArrayInputStream byteinput = new ByteArrayInputStream(data);
+
                     
-                    //ImageData imageData = new ImageData(byteinput);
-                    
-                    userImage = new Image(Display.getDefault(), byteinput);
+                    userImage = new Image(Display.getCurrent(), byteinput);
                 }
                 
                 if (colname.equals(Schema.tweetContent))
@@ -113,7 +112,7 @@ public class Tweet
         catch (CharacterCodingException e)
         {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 }

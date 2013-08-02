@@ -90,7 +90,7 @@ public class HomeTimeLine extends org.eclipse.swt.widgets.Composite
             Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
             shell.setSize(shellBounds.width, shellBounds.height);
             shell.setText("TimeLine");
-            shell.setImage(new Image(null, "image.jpg"));
+            shell.setImage(new Image(null, "image/image.jpg"));
         }
         shell.open();
 
@@ -144,8 +144,10 @@ public class HomeTimeLine extends org.eclipse.swt.widgets.Composite
                     @Override
                     public void handleEvent(Event arg0)
                     {
+                        List<String> par = ctrlPanel.getParameter();
+                        System.out.println(par);
 
-                        HomeTimelineQuery timeline = new HomeTimelineQuery();
+                        HomeTimelineQuery timeline = new HomeTimelineQuery(par);
                         List<Tweet> ret = timeline.query();
   
                         resultPanel.clear();
@@ -156,8 +158,7 @@ public class HomeTimeLine extends org.eclipse.swt.widgets.Composite
                         }
                         System.out.println("button message");
                         
-                        ArrayList<String> par = ctrlPanel.getParameter();
-                        System.out.println(par);
+                        
                         ctrlPanel.outputPenalty(Double.toString(
                                 timeline.getTotalPenalty()));
          

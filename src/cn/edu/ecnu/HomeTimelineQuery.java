@@ -26,7 +26,7 @@ import org.apache.thrift.transport.TTransport;
 
 public class HomeTimelineQuery
 {
-    private final static int num_followees = 3;
+    private final static int num_followees = 4;
     
     AtomicInteger count;
     
@@ -41,6 +41,8 @@ public class HomeTimelineQuery
     {
         count = new AtomicInteger(num_followees);
         hometimeline = new CopyOnWriteArrayList<Tweet>();
+        
+        penalties = new CopyOnWriteArrayList<Penalty>();
     }
     
     public HomeTimelineQuery(List<String> paraList)
@@ -122,20 +124,20 @@ public class HomeTimelineQuery
         return tweets;
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    /*public static void main(String[] args) throws InterruptedException {
         System.out.println("Main Thread Run!");
         NotifyTest test = new NotifyTest();
         
         test.run();
-        /*NotifyThread notifyThread = test.new NotifyThread("notify01");
+        NotifyThread notifyThread = test.new NotifyThread("notify01");
         WaitThread waitThread01 = test.new WaitThread("waiter01");
         WaitThread waitThread02 = test.new WaitThread("waiter02");
         WaitThread waitThread03 = test.new WaitThread("waiter03");
         notifyThread.start();
         waitThread01.start();
         waitThread02.start();
-        waitThread03.start();*/
-    }
+        waitThread03.start();
+    }*/
     
     
     

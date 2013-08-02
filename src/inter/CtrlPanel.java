@@ -138,7 +138,7 @@ public class CtrlPanel extends org.eclipse.swt.widgets.Composite {
 				RowData label5LData = new RowData(120,119);
 				label5.setLayoutData(label5LData);
 				label5.setText("label5");
-				label5.setImage(new Image(null,"3.jpg"));
+				label5.setImage(new Image(null,"image/image.jpg"));
 			}
 			{
 				composite3 = new Composite(this, SWT.NONE);
@@ -197,7 +197,7 @@ public class CtrlPanel extends org.eclipse.swt.widgets.Composite {
 					text1LData.widthHint = 50;
 					text1LData.heightHint = 18;
 					text1.setLayoutData(text1LData);
-					text1.setText("");
+					text1.setText("100");
 				}
 				{
 				    label1danwei = new Label(composite2, SWT.NONE);
@@ -222,7 +222,7 @@ public class CtrlPanel extends org.eclipse.swt.widgets.Composite {
 					value2LData.widthHint = 50;
 					value2LData.heightHint = 18;
 					text2.setLayoutData(value2LData);
-					text2.setText("");
+					text2.setText("60");
 				}
 			    {
                     label2danwei = new Label(composite2, SWT.NONE);
@@ -246,7 +246,7 @@ public class CtrlPanel extends org.eclipse.swt.widgets.Composite {
 					text3LData.widthHint = 50;
 					text3LData.heightHint = 18;
 					text3.setLayoutData(text3LData);
-					text3.setText("");
+					text3.setText("0.5");
 				}
                 {
                     label3danwei = new Label(composite2, SWT.NONE);
@@ -270,7 +270,7 @@ public class CtrlPanel extends org.eclipse.swt.widgets.Composite {
 					text4LData.widthHint = 50;
 					text4LData.heightHint = 18;
 					text4.setLayoutData(text4LData);
-					text4.setText("");
+					text4.setText("1");
 				}
                 {
                     label4danwei = new Label(composite2, SWT.NONE);
