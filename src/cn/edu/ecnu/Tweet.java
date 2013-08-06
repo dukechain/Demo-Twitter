@@ -25,7 +25,7 @@ public class Tweet
     
     
     public String getTweetId() {
-        return tweetID;
+        return "";
     }
     
     public String getUserName()
@@ -65,13 +65,27 @@ public class Tweet
         this.tweetPosttime = tweetPosttime;
     }
     
+    public Tweet(String userName, Image userImage, String tweetContent, long tweetPosttime)
+    {
+        this.tweetID = "TID_" + Long.toString(tweetPosttime);
+        this.userName = userName;
+        this.userImage = userImage;
+        this.tweetContent = tweetContent;
+        this.tweetPosttime = tweetPosttime;
+    }
+    
     public Tweet(SuperColumn supercol)
     {
         List<Column> colList = supercol.getColumns();
         
         try
         {
-            tweetID = ByteBufferUtil.string(ByteBufferUtil.clone(supercol.name));
+            ByteBuffer tIDbuffer = ByteBuffer.allocate(8);
+            tIDbuffer.put(ByteBufferUtil.clone(supercol.name));
+            tIDbuffer.flip();//need flip 
+            Long tID = tIDbuffer.getLong();
+            
+            tweetID = "TID_" + tID.toString();
         
             for (Column column : colList)
             {

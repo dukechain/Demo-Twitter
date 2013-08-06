@@ -45,7 +45,7 @@ import cn.edu.ecnu.util.distributiongenerator.UniformGenerator;
 
 public class GlobalTimelineGenerator extends Thread
 {    
-    private AtomicInteger mid = new AtomicInteger(0);
+    //private AtomicInteger mid = new AtomicInteger(0);
     
     private List<String> userNameList;
     private List<String> tweetContentList;
@@ -168,9 +168,9 @@ public class GlobalTimelineGenerator extends Thread
                 
                 SuperColumn supercol = new SuperColumn();
                 
-                int messageid = mid.getAndIncrement();
-                tweetID = "tweetID_" + messageid;
-                supercol.setName(ByteBufferUtil.bytes(tweetID));
+                //int messageid = mid.getAndIncrement();
+                //tweetID = "tweetID_" + messageid;
+                supercol.setName(ByteBufferUtil.bytes(timestamp));
 
                 // user name
                 Column nameColumn = new Column(ByteBufferUtil.bytes(Schema.userName));
@@ -242,7 +242,7 @@ public class GlobalTimelineGenerator extends Thread
                 
                 tr.close();
                 
-                tweet = new Tweet(tweetID, userName, image, tweetContent, currentTime);
+                tweet = new Tweet(userName, image, tweetContent, currentTime);
             }
             catch(Exception e)
             {

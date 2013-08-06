@@ -1,5 +1,6 @@
 package cn.edu.ecnu;
 
+import java.nio.charset.MalformedInputException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -77,6 +78,18 @@ public class HomeTimelineQuery
         return total;
     }
     
+    public List<Penalty> getpenalties()
+    {
+        List<Penalty> penaltyList = new ArrayList<Penalty>();
+        
+        for (Penalty penalty : penalties)
+        {
+            penaltyList.add(penalty);
+        }
+        
+        return penaltyList;
+    }
+    
     public List<Tweet> query() {
         for (int i = 0; i < num_followees; i++)
         {
@@ -100,7 +113,7 @@ public class HomeTimelineQuery
                 
             }
             waitTime = System.currentTimeMillis() - waitTime;
-            System.out.println("wait time :" + waitTime);
+            System.out.println("hometimeline query time: " + waitTime+"ms");
             //System.out.println(getName() + " end waiting!");
         }
         
@@ -120,8 +133,15 @@ public class HomeTimelineQuery
             }
         });
         
+        List<Tweet> peformtweets = new ArrayList<Tweet>();
         
-        return tweets;
+        for (int i = 0; i < 10; i++)
+        {
+            peformtweets.add(tweets.get(i));
+        }
+        
+        
+        return peformtweets;
     }
 
     /*public static void main(String[] args) throws InterruptedException {
@@ -161,7 +181,7 @@ public class HomeTimelineQuery
                 
                 SlicePredicate predicate = new SlicePredicate();
                 SliceRange sliceRange = new SliceRange(ByteBufferUtil.bytes(""), 
-                        ByteBufferUtil.bytes(""), false, 10);
+                        ByteBufferUtil.bytes(""), true, 10);
                 predicate.setSlice_range(sliceRange);
                 
                 //Agreement_parameters para = new Agreement_parameters();
@@ -175,30 +195,56 @@ public class HomeTimelineQuery
                         ByteBufferUtil.bytes(key), parent, predicate, ConsistencyLevel.ONE,
                         para);
                 
+                SuperColumn schedulerColumn = null;
+                String username = null;
+                
                 for (ColumnOrSuperColumn result : results)
                 {
                     SuperColumn supercolumn = result.super_column;
                     
-                    String nameString = ByteBufferUtil.string(
-                            ByteBufferUtil.clone(supercolumn.name));
+                    String nameString = null;
+                    try {
+                        nameString = ByteBufferUtil.string(
+                                ByteBufferUtil.clone(supercolumn.name));
+                    }
+                    catch(MalformedInputException me)
+                    {
+                        nameString = String.valueOf(ByteBufferUtil.toLong(
+                                ByteBufferUtil.clone(supercolumn.name)));
+                    }
+                    
                     
                     if (!nameString.equals("scheduler"))
                     {
                         Tweet tweet = new Tweet(supercolumn);
                         hometimeline.add(tweet);
+                        
+                        username = tweet.getUserName();
                     }         
                     else {
-                        Column schedulerCol = supercolumn.getColumns().get(0);
+                        /*Column schedulerCol = supercolumn.getColumns().get(0);
                         String schedulerStr = ByteBufferUtil.string(
                                 ByteBufferUtil.clone(schedulerCol.value));
                         
                         Penalty penalty = new Penalty(schedulerStr);
                         
-                        penalties.add(penalty);
+                        penalties.add(penalty);*/
+                        
+                        schedulerColumn = supercolumn;
                     }
                     //System.out.println(toString(column.name) + " -> " + toString(column.value));
                 }
 
+                
+                Column schedulerCol = schedulerColumn.getColumns().get(0);
+                String schedulerStr = ByteBufferUtil.string(
+                        ByteBufferUtil.clone(schedulerCol.value));
+                
+                Penalty penalty = new Penalty(schedulerStr, key, username);
+                
+                penalties.add(penalty);
+                
+                
                 tr.close();
                 
                 

@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import cn.edu.ecnu.GlobalTimelineGenerator;
 import cn.edu.ecnu.HomeTimelineQuery;
+import cn.edu.ecnu.Penalty;
 import cn.edu.ecnu.Tweet;
 
 /**
@@ -137,7 +138,7 @@ public class HomeTimeLine extends org.eclipse.swt.widgets.Composite
             {
 
                 ctrlPanel = new CtrlPanel(this, SWT.NULL);
-                
+                System.out.println(ctrlPanel.getSize());
                 ctrlPanel.button1.addListener(SWT.Selection, new Listener()
                 {
                     
@@ -152,16 +153,74 @@ public class HomeTimeLine extends org.eclipse.swt.widgets.Composite
   
                         resultPanel.clear();
 
+                        long panelstart= System.currentTimeMillis();
                         for (Tweet t : ret)
                         {
                             resultPanel.updateResultList(t);
                         }
-                        System.out.println("button message");
+                        long panelend= System.currentTimeMillis();
+                        
+                        System.out.println("panel painting time: "+(panelend-panelstart)+"ms");
                         
                         
-                        ctrlPanel.outputPenalty(Double.toString(
-                                timeline.getTotalPenalty()));
-         
+//                        ctrlPanel.outputPenalty(Double.toString(
+//                                timeline.getTotalPenalty()));
+                        
+                        //////
+                        ArrayList<String> columnTitle;
+                        ArrayList<ArrayList<String>> itemList;
+                        int imageIdx;
+                        columnTitle = new ArrayList<String>();
+                        columnTitle.add("Name");
+                        columnTitle.add("Image");
+                        columnTitle.add("Arrival Time");
+                        columnTitle.add("Finished Time");
+                        columnTitle.add("Unapplied Update Arrival Time");
+                        columnTitle.add("QoS Penalty");
+                        columnTitle.add("QoD Penalty");
+                        columnTitle.add("Total Penalty");
+
+                        ArrayList<Integer> widths = new ArrayList<Integer>();
+                        widths.add(70);
+                        widths.add(57);
+                        widths.add(140);
+                        widths.add(140);
+                        widths.add(80);
+                        widths.add(110);
+                        widths.add(110);
+                        widths.add(110);
+                        
+                        itemList = new ArrayList<ArrayList<String>>();
+                        
+                        List<Penalty> penalties = timeline.getpenalties();
+                        
+                        for (Penalty penalty : penalties)
+                        {
+                            itemList.add(penalty.getItem());
+                        }
+                        /*for (int i = 0; i < 3; ++i) {
+                            ArrayList<String> item = new ArrayList<String>();
+                            item.add("lee");
+                            item.add("image/"+Integer.toString(i) + ".jpg");
+                            item.add("10");
+                            item.add("10");
+                            item.add("10");
+                            itemList.add(item);
+                        }
+                        for (int i = 0; i < 3; ++i) {
+                            ArrayList<String> item = new ArrayList<String>();
+                            item.add("lee");
+                            item.add("image/"+Integer.toString(i) + ".jpg");
+                            item.add("10");
+                            item.add("10");
+                            item.add("10");
+                            itemList.add(item);
+                        }*/
+                        imageIdx = 1;
+                        TableDemo td = new TableDemo(Display.getCurrent().getActiveShell());
+                        td.setData(columnTitle, itemList, imageIdx);
+                        td.setWidth(widths);
+                        td.open();
                     }
                 });
                 

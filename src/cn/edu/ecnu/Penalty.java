@@ -2,13 +2,26 @@ package cn.edu.ecnu;
 
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.cassandra.db.SchedulerParameter;
 
 public class Penalty extends SchedulerParameter 
 {   
+    String key_index;
+    String userName;
+    
+    
     public Penalty(String str) {
         super(str);
+    }
+    
+    public Penalty(String str, String userkey, String userName) {
+        super(str);
+        
+        key_index = userkey.substring(userkey.length()-1);
+        this.userName = userName;
     }
     
     public double getTotalPenalty()
@@ -76,4 +89,28 @@ public class Penalty extends SchedulerParameter
         return sb.toString();
     }
     
+    
+    public ArrayList<String> getItem()
+    {
+        ArrayList<String> item = new ArrayList<String>();
+        
+        item.add(userName);
+        item.add("image/"+ key_index + ".jpg");
+        item.add(Long.toString(local_arrival_time));
+        item.add(Long.toString(local_finished_time));
+        
+        if (first_unapplied_time == Long.MAX_VALUE)
+        {
+            item.add("NULL");
+        }
+        else {
+            item.add(Long.toString(first_unapplied_time));
+        }
+        
+        item.add(Double.toString(getQoSPenalty()));
+        item.add(Double.toString(getQoDPenalty()));
+        item.add(Double.toString(getTotalPenalty()));
+        
+        return item;
+    }
 }

@@ -128,14 +128,15 @@ public class CtrlPanel extends org.eclipse.swt.widgets.Composite {
 	private void initGUI() {
 		try {
 			RowLayout thisLayout = new RowLayout(org.eclipse.swt.SWT.HORIZONTAL);
-			thisLayout.spacing = 40;
+			thisLayout.spacing = 30;
 			thisLayout.fill = true;
 			thisLayout.center = true;
 			this.setLayout(thisLayout);
-			this.setSize(500, 125);
+			this.setSize(500, 115);
 			{
 				label5 = new Label(this, SWT.NONE);
-				RowData label5LData = new RowData(120,119);
+				RowData label5LData = new RowData(110,110);
+				
 				label5.setLayoutData(label5LData);
 				label5.setText("label5");
 				label5.setImage(new Image(null,"image/image.jpg"));
@@ -144,17 +145,17 @@ public class CtrlPanel extends org.eclipse.swt.widgets.Composite {
 				composite3 = new Composite(this, SWT.NONE);
 				GridLayout composite3Layout = new GridLayout();
 				composite3Layout.makeColumnsEqualWidth = true;
-				RowData composite3LData = new RowData(100, 119);
+				RowData composite3LData = new RowData(100, 120);
 				composite3LData.width = 100;
-				composite3LData.height = 119;
+				composite3LData.height = 70;
 				composite3.setLayoutData(composite3LData);
 				composite3.setLayout(composite3Layout);
-				composite3.setSize(99, 119);
+				composite3.setSize(99, 69);
 				{
 					label6 = new Label(composite3, SWT.NONE);
 					GridData label6LData = new GridData();
 					label6.setLayoutData(label6LData);
-					label6.setText("xxxxx");
+					label6.setText("AQUAS");
 					label6.setFont(SWTResourceManager.getFont("微软雅黑",12,1,false,false));
 				}
 				{
@@ -165,7 +166,7 @@ public class CtrlPanel extends org.eclipse.swt.widgets.Composite {
 					
 					button1.addListener(SWT.Selection, new Listener() {
 						public void handleEvent(Event e) {
-							
+						   
 						}
 					});
 					
@@ -176,13 +177,13 @@ public class CtrlPanel extends org.eclipse.swt.widgets.Composite {
 				GridLayout composite2Layout = new GridLayout();
 				composite2Layout.makeColumnsEqualWidth = false;
 				composite2Layout.numColumns = 3;
-//				composite2Layout.marginLeft = 10;
-				RowData composite2LData = new RowData(250, 140);
+				composite2Layout.marginLeft = 40;
+				RowData composite2LData = new RowData(250, 110);
 				composite2LData.width = 250;
-				composite2LData.height = 140;
+				composite2LData.height = 110;
 				composite2.setLayoutData(composite2LData);
 				composite2.setLayout(composite2Layout);
-				composite2.setSize(249, 139);
+				composite2.setSize(249, 109);
 				{
 					label1 = new Label(composite2, SWT.NONE);
 					GridData label1LData = new GridData();
@@ -280,7 +281,7 @@ public class CtrlPanel extends org.eclipse.swt.widgets.Composite {
                     label4danwei.setLayoutData(label4LDatadanwei);
                     label4danwei.setText("");
                 }
-				{
+				/*{
 					label4 = new Label(composite2, SWT.NONE);
 					GridData label4LData = new GridData();
 					label4LData.widthHint = 120;
@@ -304,7 +305,7 @@ public class CtrlPanel extends org.eclipse.swt.widgets.Composite {
                     label5LDatadanwei.heightHint = 18;
                     label5danwei.setLayoutData(label5LDatadanwei);
                     label5danwei.setText("");
-                }
+                }*/
 			}
 			this.layout();
 		} catch (Exception e) {
