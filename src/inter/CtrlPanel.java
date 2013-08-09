@@ -198,7 +198,7 @@ public class CtrlPanel extends org.eclipse.swt.widgets.Composite {
 					text1LData.widthHint = 50;
 					text1LData.heightHint = 18;
 					text1.setLayoutData(text1LData);
-					text1.setText("100");
+					text1.setText("10");
 				}
 				{
 				    label1danwei = new Label(composite2, SWT.NONE);
@@ -223,7 +223,7 @@ public class CtrlPanel extends org.eclipse.swt.widgets.Composite {
 					value2LData.widthHint = 50;
 					value2LData.heightHint = 18;
 					text2.setLayoutData(value2LData);
-					text2.setText("60");
+					text2.setText("1");
 				}
 			    {
                     label2danwei = new Label(composite2, SWT.NONE);

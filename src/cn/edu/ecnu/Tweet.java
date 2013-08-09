@@ -23,6 +23,8 @@ public class Tweet
     private String tweetContent;
     public long tweetPosttime;
     
+    public String timeTest;
+    
     
     public String getTweetId() {
         return "";
@@ -49,6 +51,7 @@ public class Tweet
         Date dt = new Date(tweetPosttime);
         
         return sdf.format(dt);
+        //return Long.toString(tweetPosttime);
     }
     
     public Tweet()
@@ -63,6 +66,8 @@ public class Tweet
         this.userImage = userImage;
         this.tweetContent = tweetContent;
         this.tweetPosttime = tweetPosttime;
+        
+        timeTest = getTweetPosttime();
     }
     
     public Tweet(String userName, Image userImage, String tweetContent, long tweetPosttime)
@@ -72,6 +77,8 @@ public class Tweet
         this.userImage = userImage;
         this.tweetContent = tweetContent;
         this.tweetPosttime = tweetPosttime;
+        
+        timeTest = getTweetPosttime();
     }
     
     public Tweet(SuperColumn supercol)
@@ -128,5 +135,7 @@ public class Tweet
             // TODO Auto-generated catch block
             //e.printStackTrace();
         }
+        
+        timeTest = getTweetPosttime();
     }
 }
